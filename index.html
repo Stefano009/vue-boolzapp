@@ -54,7 +54,7 @@
                     <!-- using v-for to create contacts after creating the prototype -->
                     <ul class="contact-list">
                         <!-- i'm saving index too cause it would be probably usefull with the next milestones -->
-                        <li v-for="({name,avatar,visible,messages}, index) in contacts" class="list-users">
+                        <li @click="changeConversation(index)" v-for="({name,avatar,visible,messages}, index) in contacts" class="list-users">
                             <img :src="'img/avatar'+avatar+'.jpg'" alt="icon">
                             <p>{{name}}</p>
                         </li>
@@ -80,9 +80,14 @@
                         <i class="fas fa-ellipsis-v"></i>
                     </div>
                 </div>
+                <!-- message prototype -->
                 <div class="chat-area">
-
+                    <div v-for="{message,date,status} in contacts[messagesIndex].messages" :class="'message '+ status">
+                        <p>{{message}}</p>
+                        <p class="date">{{date}}</p>
+                    </div>
                 </div>
+                <!-- end of message prototype -->
                 <div class="input-message">
                     <i class="far fa-smile"></i>
                     <input type="text" placeholder="scrivi un messaggio">

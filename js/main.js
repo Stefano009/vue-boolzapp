@@ -13,6 +13,7 @@ const app = new Vue({
                 status: ''
             }]
         }],
+        messagesIndex: '0',
         contacts: [{
                 name: 'Michele',
                 avatar: '_1',
@@ -93,6 +94,10 @@ const app = new Vue({
                 ],
             },
         ],
+    },
+    methods: {
+        changeConversation(index) {
+            this.messagesIndex = index;
+        }
     }
-
 })

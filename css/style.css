@@ -181,6 +181,10 @@
     .list-users img {
         padding-right: 20px;
     }
+    
+    .list-users:hover {
+        background-color: lightgray;
+    }
     /* chat container  */
     
     .input-message {
@@ -199,4 +203,28 @@
         border: none;
         padding-left: 20px;
         font-size: 1rem;
+    }
+    /* message container prototype  */
+    
+    .message {
+        width: 200px;
+        padding: 10px;
+        border-radius: 2rem;
+    }
+    
+    .received {
+        margin: 20px 50px;
+        background-color: rgba(243, 243, 243, 0.699);
+    }
+    
+    .sent {
+        margin: 20px 600px;
+        background-color: hsla(120, 63%, 75%, 0.575);
+    }
+    
+    .date {
+        padding: 5px 10px 0;
+        text-align: end;
+        font-size: .6rem;
+        color: gray;
     }
