@@ -6,17 +6,21 @@
     /* common */
     
     body {
-        font-family: "Lato", sans-serif;
+        font-family: "Lato", "FontAwesome", sans-serif;
     }
     
     .user,
     .contacted-user,
-    .input-message {
+    .input-message,
+    .search-contacts {
         background-color: #EAEAEA;
     }
     
     .notifications {
         background-color: #8EDAFC;
+        display: flex;
+        align-items: center;
+        padding: 20px;
     }
     /* boxes */
     
@@ -51,9 +55,12 @@
     }
     
     .search-contacts {
+        position: relative;
         width: 100%;
         height: 50px;
-        background-color: white;
+        display: flex;
+        justify-content: center;
+        align-items: center;
     }
     
     .contacts {
@@ -124,4 +131,56 @@
         color: gray;
         font-size: .8rem;
         padding-top: 5px;
+    }
+    
+    .notification-icon {
+        color: #8EDAFC;
+        border-radius: 50%;
+        width: 45px;
+        height: 45px;
+        background-color: white;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 1.5rem;
+        margin: 10px;
+    }
+    
+    .notification-message a {
+        color: darkslategray;
+        font-size: .8rem;
+    }
+    
+    .search-contacts input {
+        width: 90%;
+        height: 80%;
+        padding-left: 60px;
+        border: none;
+    }
+    
+    .search-contacts i {
+        position: absolute;
+        top: 25px;
+        left: 40px;
+        transform: translateY(-50%);
+        color: #B6B9BB;
+    }
+    /* chat container  */
+    
+    .input-message {
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        font-size: 1.5rem;
+        color: gray;
+        padding: 20px;
+    }
+    
+    .input-message input {
+        width: 85%;
+        height: 55px;
+        border-radius: 0.5rem;
+        border: none;
+        padding-left: 20px;
+        font-size: 1rem;
     }
