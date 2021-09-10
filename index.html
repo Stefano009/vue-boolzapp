@@ -14,8 +14,11 @@
 
 <body>
     <div id="root" class="background">
+        <!-- container with the two floating elements -->
         <div class="app-wrapper">
+            <!-- container with contacts -->
             <div class="float-left contacts-container">
+                <!-- user element -->
                 <div class="user">
                     <div class="user-name">
                         <img src="img/avatar_io.jpg" alt="">
@@ -27,6 +30,8 @@
                         <i class="fas fa-ellipsis-v"></i>
                     </div>
                 </div>
+                <!-- end user element -->
+                <!-- notifications element -->
                 <div class="notifications">
                     <div class="notification-icon">
                         <i class="fas fa-bell-slash"></i>
@@ -36,12 +41,29 @@
                         <p> <a href="#">Attiva notifiche desktop</a> </p>
                     </div>
                 </div>
+                <!-- end notifications element -->
+                <!-- search elements  -->
                 <div class="search-contacts">
+                    <!-- search icon absolute over the input, remember to hide on click over the input -->
                     <i class="fas fa-search"></i>
                     <input type="text" placeholder=" cerca o inizia una nuova chat">
                 </div>
-                <div class="contacts"></div>
+                <!-- end of search element  -->
+                <!-- contacts element -->
+                <div class="contacts">
+                    <!-- using v-for to create contacts after creating the prototype -->
+                    <ul class="contact-list">
+                        <!-- i'm saving index too cause it would be probably usefull with the next milestones -->
+                        <li v-for="({name,avatar,visible,messages}, index) in contacts" class="list-users">
+                            <img :src="'img/avatar'+avatar+'.jpg'" alt="icon">
+                            <p>{{name}}</p>
+                        </li>
+                    </ul>
+                </div>
+                <!-- end of contacts -->
             </div>
+            <!-- end container with contacts -->
+            <!-- chat container -->
             <div class="float-left chat-container">
                 <div class="contacted-user">
                     <div class="user-name">
@@ -65,7 +87,9 @@
                     <i class="fas fa-microphone"></i>
                 </div>
             </div>
+            <!-- end of chat container -->
         </div>
+        <!-- end of floating elements container -->
     </div>
     <script src="https://cdn.jsdelivr.net/npm/vue"></script>
     <script src="js/main.js"></script>
