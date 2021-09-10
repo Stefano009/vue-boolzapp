@@ -3,6 +3,16 @@ Vue.config.devtools = true;
 const app = new Vue({
     el: '#root',
     data: {
+        userData: [{
+            name: 'Stefano',
+            avatar: '_io',
+            visible: true,
+            message: [{
+                date: '',
+                message: '',
+                status: ''
+            }]
+        }],
         contacts: [{
                 name: 'Michele',
                 avatar: '_1',

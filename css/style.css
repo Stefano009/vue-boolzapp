@@ -155,7 +155,7 @@
     .search-contacts input {
         width: 95%;
         height: 80%;
-        padding-left: 60px;
+        padding-left: 80px;
         border: none;
     }
     
@@ -170,6 +170,7 @@
     .list-users {
         display: flex;
         padding-left: 20px;
+        height: 80px;
         align-items: flex-start;
         font-size: 1.1rem;
         text-transform: capitalize;
