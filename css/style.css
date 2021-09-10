@@ -105,10 +105,11 @@
         padding: 0 10px;
     }
     
-    .user-name>img,
+    .user-name img,
     li img {
         height: 60px;
         border-radius: 50%;
+        border: solid 1px black;
     }
     
     .user-name {
@@ -179,7 +180,7 @@
     }
     
     .list-users img {
-        padding-right: 20px;
+        margin-right: 20px;
     }
     
     .list-users:hover {
@@ -209,7 +210,7 @@
     .message {
         width: 200px;
         padding: 10px;
-        border-radius: 2rem;
+        border-radius: 15px;
     }
     
     .received {
