@@ -70,7 +70,7 @@
     .chat-area {
         width: 100%;
         height: calc(100% - 150px);
-        background-image: url('img/mine.jpg');
+        background-image: url(../img/mine.jpg);
     }
     /* clearfix */
     
