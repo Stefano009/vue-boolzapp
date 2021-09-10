@@ -1,6 +1,6 @@
 Vue.config.devtools = true;
 
-const app = new Vue {
+const app = new Vue({
     el: '#root',
     contacts: [{
             name: 'Michele',
@@ -83,4 +83,4 @@ const app = new Vue {
         },
     ],
 
-}
+})
