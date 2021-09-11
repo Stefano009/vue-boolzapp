@@ -108,6 +108,7 @@
     .user-name img,
     li img {
         height: 60px;
+        margin-right: 20px;
         border-radius: 50%;
         border: solid 1px black;
     }
