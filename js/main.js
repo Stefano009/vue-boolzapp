@@ -1,5 +1,4 @@
 Vue.config.devtools = true;
-
 const app = new Vue({
     el: '#root',
     data: {
@@ -14,6 +13,7 @@ const app = new Vue({
             }]
         }],
         messagesIndex: '0',
+        userMessages: '',
         contacts: [{
                 name: 'Michele',
                 avatar: '_1',
@@ -98,6 +98,35 @@ const app = new Vue({
     methods: {
         changeConversation(index) {
             this.messagesIndex = index;
+        },
+        timeFunction: function() {
+            var currentDate = new Date();
+            var currentDateWithFormat = new Date().toJSON().slice(0, 19).replace(/-/g, '/').replace(/T/, ' ');
+            return currentDateWithFormat
+        },
+        sendMessage(index) {
+            const message = this.userMessages;
+            const status = 'sent';
+            const date = this.timeFunction();
+            this.contacts[index].messages.push({ date, message, status });
+            this.userMessages = '';
+            this.timerMessage(index);
+
+        },
+        // receiveMessage(index) {
+        //     const message = 'Ok!';
+        //     const status = 'received';
+        //     const date = this.timeFunction();
+        //     this.contacts[index].messages.push({ date, message, status });
+        // },
+        timerMessage(index) {
+            const self = this;
+            setTimeout(() => {
+                const message = 'Ok!';
+                const status = 'received';
+                const date = self.timeFunction();
+                self.contacts[index].messages.push({ date, message, status });
+            }, 1000);
         }
     }
 })

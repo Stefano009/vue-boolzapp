@@ -90,7 +90,7 @@
                 <!-- end of message prototype -->
                 <div class="input-message">
                     <i class="far fa-smile"></i>
-                    <input type="text" placeholder="scrivi un messaggio">
+                    <input @keydown.enter="sendMessage(messagesIndex)" v-model="userMessages" type="text" placeholder="scrivi un messaggio">
                     <i class="fas fa-microphone"></i>
                 </div>
             </div>
