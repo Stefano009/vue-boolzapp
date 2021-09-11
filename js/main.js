@@ -14,6 +14,7 @@ const app = new Vue({
         }],
         messagesIndex: '0',
         userMessages: '',
+        search: '',
         contacts: [{
                 name: 'Michele',
                 avatar: '_1',
@@ -127,6 +128,13 @@ const app = new Vue({
                 const date = self.timeFunction();
                 self.contacts[index].messages.push({ date, message, status });
             }, 1000);
+        },
+        // search filter with partial results
+        searchFilter() {
+            if (this.search != '') {
+                return this.contacts.filter(x => x.name.toLowerCase().includes(this.search.toLowerCase()));
+            }
+            return this.contacts;
         }
     }
 })
