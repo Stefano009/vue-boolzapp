@@ -15,6 +15,8 @@ const app = new Vue({
         messagesIndex: '0',
         userMessages: '',
         search: '',
+        opacityFlag: false,
+        opacity: 'opacity0',
         contacts: [{
                 name: 'Michele',
                 avatar: '_1',

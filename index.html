@@ -83,8 +83,19 @@
                 <!-- message prototype -->
                 <div class="chat-area">
                     <div v-for="{message,date,status} in searchFilter()[messagesIndex].messages" :class="'message '+ status">
-                        <p>{{message}}</p>
-                        <p class="date">{{date}}</p>
+                        <div class="display-flex">
+                            <p>{{message}}</p>
+                            <div @click="opacityFlag = !opacityFlag" class="angle-down">
+                                <i class="fas fa-angle-down"></i>
+                            </div>
+                            <div v-if="(opacityFlag) ? opacity = 'opacity1' : opacity = 'opacity0'" :class="opacity" class="delete-message">
+                                <p>message info</p>
+                                <p>Delete message</p>
+                            </div>
+                        </div>
+                        <div>
+                            <p class="date">{{date}}</p>
+                        </div>
                     </div>
                 </div>
                 <!-- end of message prototype -->

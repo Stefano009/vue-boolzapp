@@ -212,6 +212,14 @@
         width: 200px;
         padding: 10px;
         border-radius: 15px;
+        display: flex;
+        flex-direction: column;
+    }
+    
+    .display-flex {
+        display: flex;
+        position: relative;
+        justify-content: space-between;
     }
     
     .received {
@@ -229,4 +237,31 @@
         text-align: end;
         font-size: .6rem;
         color: gray;
+    }
+    
+    .delete-message {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        background-color: white;
+        width: 150px;
+        height: 100px;
+        padding: 10px;
+    }
+    
+    .opacity0 {
+        opacity: 0;
+    }
+    
+    .opacity1 {
+        opacity: 1;
+    }
+    
+    .delete-message p {
+        padding: 0.5rem;
+    }
+    
+    .angle-down {
+        width: 25px;
+        height: 25px;
     }
