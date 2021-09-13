@@ -12,7 +12,8 @@ const app = new Vue({
                 status: ''
             }]
         }],
-        messagesIndex: '0',
+        deleteMessagesIndex: '-1',
+        conversationIndex: '0',
         userMessages: '',
         search: '',
         opacityFlag: false,
@@ -100,7 +101,15 @@ const app = new Vue({
     },
     methods: {
         changeConversation(index) {
-            this.messagesIndex = index;
+
+            this.conversationIndex = index;
+
+        },
+        toggleDropDown(index) {
+            if (this.deleteMessagesIndex == index) {
+                return this.deleteMessagesIndex = -1;
+            }
+            return this.deleteMessagesIndex = index;
         },
         timeFunction: function() {
             var currentDate = new Date();
@@ -137,6 +146,10 @@ const app = new Vue({
                 return this.contacts.filter(x => x.name.toLowerCase().includes(this.search.toLowerCase()));
             }
             return this.contacts;
+        },
+        removeMessageFunction(conversationIndex, messagesIndex) {
+            this.contacts[conversationIndex].messages.splice(messagesIndex, 1)
+            this.deleteMessagesIndex = '-1';
         }
     }
 })

@@ -249,19 +249,16 @@
         padding: 10px;
     }
     
-    .opacity0 {
-        opacity: 0;
-    }
-    
-    .opacity1 {
-        opacity: 1;
-    }
-    
     .delete-message p {
         padding: 0.5rem;
+    }
+    
+    .delete-message>p:hover {
+        background-color: gray;
     }
     
     .angle-down {
         width: 25px;
         height: 25px;
+        cursor: pointer;
     }
