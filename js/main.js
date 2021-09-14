@@ -104,18 +104,25 @@ const app = new Vue({
         changeConversation(index) {
 
             this.conversationIndex = index;
+            this.deleteMessagesIndex = '-1';
 
+        },
+        activeStatus(index) {
+            if (this.conversationIndex == index)
+                return 'active-user';
+            return '';
+        },
+        resetDropDown() {
+            this.deleteMessagesIndex = '-1';
         },
         toggleDropDown(index) {
             if (this.deleteMessagesIndex == index) {
-                return this.deleteMessagesIndex = -1;
+                return this.deleteMessagesIndex = '-1';
             }
             return this.deleteMessagesIndex = index;
         },
         timeFunction: function() {
-            var currentDate = new Date();
-            var currentDateWithFormat = new Date().toJSON().slice(0, 19).replace(/-/g, '/').replace(/T/, ' ');
-            return currentDateWithFormat
+            return dayjs().format('DD/MM/YYYY HH:mm:ss')
         },
         sendMessage(index) {
             const message = this.userMessages;

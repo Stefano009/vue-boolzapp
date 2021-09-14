@@ -9,6 +9,7 @@
     <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" integrity="sha512-1ycn6IcaQQ40/MKBW2W4Rhis/DbILU74C1vSrLJxCq57o941Ym01SwNsOMqvEBFlcgUa6xLiPY/NS5R+E6ztJQ==" crossorigin="anonymous" referrerpolicy="no-referrer"
     />
+    <script src="https://unpkg.com/dayjs@1.8.21/dayjs.min.js"></script>
     <title>BoolZap</title>
 </head>
 
@@ -54,7 +55,11 @@
                     <!-- using v-for to create contacts after creating the prototype -->
                     <ul class="contact-list">
                         <!-- i'm saving index too cause it would be probably usefull with the next milestones -->
-                        <li @click="changeConversation(index)" v-for="({name,avatar,visible,messages}, index) in searchFilter()" class="list-users">
+                        <!-- ******************************************************** -->
+                        <!-- tabindex = 1 force a real focus state -->
+
+                        <li tabindex="1" @click="changeConversation(index)" v-for="({name,avatar,visible,messages}, index) in searchFilter()" :class="'list-users ' + activeStatus(index) ">
+                            <!-- ******************************************************** -->
                             <div>
                                 <img :src="'img/avatar'+avatar+'.jpg'" alt="icon">
                                 <p>{{name}}</p>

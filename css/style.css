@@ -184,8 +184,8 @@
         margin-right: 20px;
     }
     
-    .list-users:hover {
-        background-color: lightgray;
+    .active-user {
+        background-color: gray;
     }
     /* chat container  */
     
@@ -228,7 +228,7 @@
     }
     
     .sent {
-        margin: 20px 600px;
+        margin: 20px 70%;
         background-color: hsla(120, 63%, 75%, 0.575);
     }
     
@@ -273,3 +273,17 @@
         bottom: 5px;
         right: 5px;
     }
+    
+    i {
+        cursor: pointer;
+    }
+    /* hover  */
+    
+    .list-users:hover {
+        background-color: lightgray;
+    }
+    /*     
+    .list-users:focus,
+    .list-users:active {
+        background-color: gray;
+    } */
