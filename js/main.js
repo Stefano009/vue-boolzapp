@@ -16,7 +16,7 @@ const app = new Vue({
         conversationIndex: '0',
         userMessages: '',
         search: '',
-        lastMessage: {},
+        // lastMessageTmp: {},
         opacityFlag: false,
         opacity: 'opacity0',
         contacts: [{
@@ -129,7 +129,7 @@ const app = new Vue({
             const status = 'sent';
             const date = this.timeFunction();
             this.contacts[index].messages.push({ date, message, status });
-            this.lastMessage = { date, message, status, index }
+            // this.lastMessage = { date, message, status, index }
             this.userMessages = '';
             this.timerMessage(index);
 
@@ -147,19 +147,33 @@ const app = new Vue({
                 const status = 'received';
                 const date = self.timeFunction();
                 self.contacts[index].messages.push({ date, message, status });
-                this.lastMessage = { date, message, status, index }
+                // self.lastMessage = { date, message, status, index }
             }, 1000);
         },
         // search filter with partial results
-        searchFilter() {
+        // searchFilter() {
+        //     if (this.search != '') {
+        //         return this.contacts.filter(x => x.name.toLowerCase().includes(this.search.toLowerCase()));
+        //     }
+        //     return this.contacts;
+        // },
+        removeMessageFunction(conversationIndex, messagesIndex) {
+            this.contacts[conversationIndex].messages.splice(messagesIndex, 1)
+            this.deleteMessagesIndex = '-1';
+        },
+        lastMessage(index) {
+            const tmp = this.contacts[index].messages
+            const length = parseInt(tmp.length - 1);
+            console.log(length, tmp[length])
+            return tmp[length]
+        }
+    },
+    computed: {
+        searchFilter: function() {
             if (this.search != '') {
                 return this.contacts.filter(x => x.name.toLowerCase().includes(this.search.toLowerCase()));
             }
             return this.contacts;
-        },
-        removeMessageFunction(conversationIndex, messagesIndex) {
-            this.contacts[conversationIndex].messages.splice(messagesIndex, 1)
-            this.deleteMessagesIndex = '-1';
         }
-    }
+    },
 })
