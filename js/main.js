@@ -102,13 +102,7 @@ const app = new Vue({
     },
     methods: {
         changeConversation(index) {
-            if (this.emptyChat[1] == index) {
-                this.emptyChat = [false, index];
-                this.conversationIndex = index;
-                return
-            }
             this.conversationIndex = index;
-            this.emptyChat[0] = true;
             this.deleteMessagesIndex = '-1';
 
         },
@@ -133,11 +127,12 @@ const app = new Vue({
             const message = this.userMessages;
             const status = 'sent';
             const date = this.timeFunction();
-            if (this.searchFilter[this.conversationIndex].messages[0].message == '') {
-                this.emptyChat = [true, -1];
+            if (this.searchFilter[index].visible == false) {
+                this.searchFilter[index].visible = true;
                 this.searchFilter[index].messages[0].message = message;
                 this.searchFilter[index].messages[0].date = date;
                 this.searchFilter[index].messages[0].status = status;
+                this.userMessages = ''
                 this.timerMessage(index);
                 return
             }
@@ -172,12 +167,20 @@ const app = new Vue({
         //     }
         //     return this.contacts;
         // },
+        // removeMessageFunction(conversationIndex, messagesIndex) {
+        //     if (messagesIndex == 0) {
+        //         this.deleteMessagesIndex = '-1';
+        //         this.searchFilter[conversationIndex].messages[0].message = '';
+        //         this.searchFilter[conversationIndex].messages[0].date = '';
+        //         return this.emptyChat = [false, conversationIndex];
+        //     }
+        //     this.searchFilter[conversationIndex].messages.splice(messagesIndex, 1)
+        //     this.deleteMessagesIndex = '-1';
+        // },
         removeMessageFunction(conversationIndex, messagesIndex) {
             if (messagesIndex == 0) {
                 this.deleteMessagesIndex = '-1';
-                this.searchFilter[conversationIndex].messages[0].message = '';
-                this.searchFilter[conversationIndex].messages[0].date = '';
-                return this.emptyChat = [false, conversationIndex];
+                return this.searchFilter[conversationIndex].visible = false;
             }
             this.searchFilter[conversationIndex].messages.splice(messagesIndex, 1)
             this.deleteMessagesIndex = '-1';
