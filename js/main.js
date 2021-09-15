@@ -178,10 +178,11 @@ const app = new Vue({
         //     this.deleteMessagesIndex = '-1';
         // },
         removeMessageFunction(conversationIndex, messagesIndex) {
-            if (messagesIndex == 0) {
+            if (this.searchFilter[conversationIndex].messages.length < 2) {
                 this.deleteMessagesIndex = '-1';
                 return this.searchFilter[conversationIndex].visible = false;
             }
+            console.log(this.searchFilter[conversationIndex].messages.length)
             this.searchFilter[conversationIndex].messages.splice(messagesIndex, 1)
             this.deleteMessagesIndex = '-1';
         },
