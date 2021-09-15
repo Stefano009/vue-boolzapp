@@ -162,7 +162,7 @@ const app = new Vue({
             this.deleteMessagesIndex = '-1';
         },
         lastMessage(index) {
-            const tmp = this.contacts[index].messages
+            const tmp = this.searchFilter[index].messages
             const length = parseInt(tmp.length - 1);
             console.log(length, tmp[length])
             return tmp[length]
