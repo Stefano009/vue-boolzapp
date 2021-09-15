@@ -35,6 +35,7 @@
         height: calc(100% - 25px);
         width: calc(100% - 400px);
         margin: auto;
+        box-shadow: 5px 5px 15px green;
     }
     
     .float-left {
@@ -74,7 +75,7 @@
     .chat-container {
         height: 100%;
         width: 65%;
-        background-color: red;
+        /* background-color: red; */
     }
     
     .contacted-user,
@@ -171,21 +172,25 @@
     
     .list-users>div {
         display: flex;
-        padding-left: 20px;
-        height: 80px;
+        flex-wrap: wrap;
+        padding: 20px;
+        height: 100px;
         align-items: flex-start;
         font-size: 1.1rem;
-        text-transform: capitalize;
         padding-top: 10px;
         border-bottom: 1px solid #EAEAEA;
+    }
+    
+    .list-users>div::first-letter {
+        text-transform: capitalize;
     }
     
     .list-users img {
         margin-right: 20px;
     }
     
-    .list-users:hover {
-        background-color: lightgray;
+    .active-user {
+        background-color: gray;
     }
     /* chat container  */
     
@@ -214,6 +219,7 @@
         border-radius: 15px;
         display: flex;
         flex-direction: column;
+        box-shadow: 2px 2px 5px black;
     }
     
     .display-flex {
@@ -228,7 +234,7 @@
     }
     
     .sent {
-        margin: 20px 600px;
+        margin: 20px 70%;
         background-color: hsla(120, 63%, 75%, 0.575);
     }
     
@@ -269,7 +275,29 @@
     }
     
     h5 {
-        position: absolute;
+        width: 100%;
+        font-size: .5rem;
         bottom: 5px;
         right: 5px;
+        text-align: end;
     }
+    
+    i {
+        cursor: pointer;
+    }
+    /* hover  */
+    
+    .list-users:hover {
+        background-color: lightgray;
+    }
+    
+    .empty-chat {
+        font-size: 3rem;
+        text-align: center;
+        padding: 10rem;
+    }
+    /*     
+    .list-users:focus,
+    .list-users:active {
+        background-color: gray;
+    } */

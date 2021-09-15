@@ -151,7 +151,7 @@ const app = new Vue({
             this.userMessages = '';
             this.mikeSend = true;
             this.timerMessage(index);
-
+            this.scrollToEnd;
         },
         switchButton() {
             if (this.userMessages != '')
@@ -170,6 +170,7 @@ const app = new Vue({
                 const status = 'received';
                 const date = self.timeFunction();
                 self.searchFilter[index].messages.push({ date, message, status });
+                this.scrollToEnd;
                 // self.lastMessage = { date, message, status, index }
             }, 1000);
         },
@@ -224,6 +225,10 @@ const app = new Vue({
                 return this.contacts.filter(x => x.name.toLowerCase().includes(this.search.toLowerCase()));
             }
             return this.contacts;
-        }
+        },
+        // scrollToEnd: function() {
+        //     var scroll = this.$refs.scroll;
+        //     scroll.scrollTop = scroll.scrollHeight
+        // }
     },
 })

@@ -12,17 +12,19 @@ const app = new Vue({
                 status: ''
             }]
         }],
+        mikeSend: true,
         deleteMessagesIndex: '-1',
         conversationIndex: '0',
         userMessages: '',
         search: '',
-        lastMessage: {},
-        opacityFlag: false,
-        opacity: 'opacity0',
+        emptyChat: [true, -1],
+        // lastMessageTmp: {},
+
         contacts: [{
                 name: 'Michele',
                 avatar: '_1',
                 visible: true,
+                filtered: true,
                 messages: [{
                         date: '10/01/2020 15:30:55',
                         message: 'Hai portato a spasso il cane?',
@@ -44,6 +46,7 @@ const app = new Vue({
                 name: 'Fabio',
                 avatar: '_2',
                 visible: true,
+                filtered: true,
                 messages: [{
                         date: '20/03/2020 16:30:00',
                         message: 'Ciao come stai?',
@@ -65,6 +68,7 @@ const app = new Vue({
                 name: 'Samuele',
                 avatar: '_3',
                 visible: true,
+                filtered: true,
                 messages: [{
                         date: '28/03/2020 10:10:40',
                         message: 'La Marianna va in campagna',
@@ -86,6 +90,7 @@ const app = new Vue({
                 name: 'Luisa',
                 avatar: '_4',
                 visible: true,
+                filtered: true,
                 messages: [{
                         date: '10/01/2020 15:30:55',
                         message: 'Lo sai che ha aperto una nuova pizzeria?',
@@ -102,30 +107,55 @@ const app = new Vue({
     },
     methods: {
         changeConversation(index) {
-
             this.conversationIndex = index;
+            this.deleteMessagesIndex = '-1';
 
+        },
+        activeStatus(index) {
+            if (this.conversationIndex == index)
+                return 'active-user';
+            return '';
+        },
+        resetDropDown() {
+            this.deleteMessagesIndex = '-1';
         },
         toggleDropDown(index) {
             if (this.deleteMessagesIndex == index) {
-                return this.deleteMessagesIndex = -1;
+                return this.deleteMessagesIndex = '-1';
             }
             return this.deleteMessagesIndex = index;
         },
         timeFunction: function() {
-            var currentDate = new Date();
-            var currentDateWithFormat = new Date().toJSON().slice(0, 19).replace(/-/g, '/').replace(/T/, ' ');
-            return currentDateWithFormat
+            return dayjs().format('DD/MM/YYYY HH:mm:ss')
         },
         sendMessage(index) {
             const message = this.userMessages;
             const status = 'sent';
             const date = this.timeFunction();
-            this.contacts[index].messages.push({ date, message, status });
-            this.lastMessage = { date, message, status, index }
+            if (this.searchFilter[index].visible == false) {
+                this.searchFilter[index].visible = true;
+                this.searchFilter[index].messages[0].message = message;
+                this.searchFilter[index].messages[0].date = date;
+                this.searchFilter[index].messages[0].status = status;
+                this.userMessages = '';
+                this.mikeSend = true;
+                this.timerMessage(index);
+                return
+            }
+            if (this.userMessages == '' || this.userMessages.match(/[' ']/)) {
+                this.mikeSend = true;
+                return this.userMessages = "";
+            }
+            this.searchFilter[index].messages.push({ date, message, status });
+            // this.lastMessage = { date, message, status, index }
             this.userMessages = '';
+            this.mikeSend = true;
             this.timerMessage(index);
-
+            this.scrollToEnd;
+        },
+        switchButton() {
+            if (this.userMessages != '')
+                return this.mikeSend = false;
         },
         // receiveMessage(index) {
         //     const message = 'Ok!';
@@ -139,20 +169,66 @@ const app = new Vue({
                 const message = 'Ok!';
                 const status = 'received';
                 const date = self.timeFunction();
-                self.contacts[index].messages.push({ date, message, status });
-                this.lastMessage = { date, message, status, index }
+                self.searchFilter[index].messages.push({ date, message, status });
+                this.scrollToEnd;
+                // self.lastMessage = { date, message, status, index }
             }, 1000);
         },
         // search filter with partial results
-        searchFilter() {
+        // searchFilter() {
+        //     if (this.search != '') {
+        //         return this.contacts.filter(x => x.name.toLowerCase().includes(this.search.toLowerCase()));
+        //     }
+        //     return this.contacts;
+        // },
+        // removeMessageFunction(conversationIndex, messagesIndex) {
+        //     if (messagesIndex == 0) {
+        //         this.deleteMessagesIndex = '-1';
+        //         this.searchFilter[conversationIndex].messages[0].message = '';
+        //         this.searchFilter[conversationIndex].messages[0].date = '';
+        //         return this.emptyChat = [false, conversationIndex];
+        //     }
+        //     this.searchFilter[conversationIndex].messages.splice(messagesIndex, 1)
+        //     this.deleteMessagesIndex = '-1';
+        // },
+        removeMessageFunction(conversationIndex, messagesIndex) {
+            if (this.searchFilter[conversationIndex].messages.length < 2) {
+                this.deleteMessagesIndex = '-1';
+                return this.searchFilter[conversationIndex].visible = false;
+            }
+            console.log(this.searchFilter[conversationIndex].messages.length)
+            this.searchFilter[conversationIndex].messages.splice(messagesIndex, 1)
+            this.deleteMessagesIndex = '-1';
+        },
+        lastMessage(index) {
+            const tmp = this.searchFilter[index].messages
+            const length = parseInt(tmp.length - 1);
+            // console.log(length, tmp[length])
+            return tmp[length]
+        },
+        removeFilter() {
+            if (this.search == '') {
+                for (i = 0; i < this.contacts.length; i++)
+                    this.contacts[i].filtered = true;
+            }
+        }
+    },
+    computed: {
+        searchFilter: function() {
+            this.removeFilter();
             if (this.search != '') {
+                if (this.contacts.filter(x => x.name.toLowerCase().includes(this.search.toLowerCase())).length < 1) {
+                    for (i = 0; i < this.contacts.length; i++)
+                        this.contacts[i].filtered = false;
+                    return this.contacts
+                }
                 return this.contacts.filter(x => x.name.toLowerCase().includes(this.search.toLowerCase()));
             }
             return this.contacts;
         },
-        removeMessageFunction(conversationIndex, messagesIndex) {
-            this.contacts[conversationIndex].messages.splice(messagesIndex, 1)
-            this.deleteMessagesIndex = '-1';
-        }
-    }
+        // scrollToEnd: function() {
+        //     var scroll = this.$refs.scroll;
+        //     scroll.scrollTop = scroll.scrollHeight
+        // }
+    },
 })

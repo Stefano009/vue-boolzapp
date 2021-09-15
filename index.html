@@ -91,7 +91,7 @@
                     </div>
                 </div>
                 <!-- message prototype -->
-                <div class="chat-area">
+                <div ref="scroll" class="chat-area">
                     <div v-show="searchFilter[conversationIndex].visible == true" v-for="({message,date,status}, index) in searchFilter[conversationIndex].messages" :class="'message '+ status">
                         <div class="display-flex ">
                             <p>{{message}}</p>
@@ -114,7 +114,7 @@
                 <!-- end of message prototype -->
                 <div class="input-message ">
                     <i class="far fa-smile "></i>
-                    <input @keyup="switchButton" @keydown.enter="sendMessage(conversationIndex) " v-model="userMessages " type="text " placeholder="scrivi un messaggio ">
+                    <input @keyup="switchButton" @keydown.enter="sendMessage(conversationIndex)" v-model="userMessages " type="text " placeholder="scrivi un messaggio ">
                     <i v-show="mikeSend == true" class="fas fa-microphone "></i>
                     <i @click="sendMessage(conversationIndex)" v-show="mikeSend == false" class="fas fa-paper-plane"></i>
                 </div>
