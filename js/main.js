@@ -23,6 +23,7 @@ const app = new Vue({
                 name: 'Michele',
                 avatar: '_1',
                 visible: true,
+                filtered: true,
                 messages: [{
                         date: '10/01/2020 15:30:55',
                         message: 'Hai portato a spasso il cane?',
@@ -44,6 +45,7 @@ const app = new Vue({
                 name: 'Fabio',
                 avatar: '_2',
                 visible: true,
+                filtered: true,
                 messages: [{
                         date: '20/03/2020 16:30:00',
                         message: 'Ciao come stai?',
@@ -65,6 +67,7 @@ const app = new Vue({
                 name: 'Samuele',
                 avatar: '_3',
                 visible: true,
+                filtered: true,
                 messages: [{
                         date: '28/03/2020 10:10:40',
                         message: 'La Marianna va in campagna',
@@ -86,6 +89,7 @@ const app = new Vue({
                 name: 'Luisa',
                 avatar: '_4',
                 visible: true,
+                filtered: true,
                 messages: [{
                         date: '10/01/2020 15:30:55',
                         message: 'Lo sai che ha aperto una nuova pizzeria?',
@@ -191,12 +195,21 @@ const app = new Vue({
             const length = parseInt(tmp.length - 1);
             // console.log(length, tmp[length])
             return tmp[length]
+        },
+        removeFilter() {
+            if (this.search == '') {
+                for (i = 0; i < this.contacts.length; i++)
+                    this.contacts[i].filtered = true;
+            }
         }
     },
     computed: {
         searchFilter: function() {
+            this.removeFilter();
             if (this.search != '') {
-                if (this.contacts.filter(x => x.name.toLowerCase().includes(this.search.toLowerCase())).length == 0) {
+                if (this.contacts.filter(x => x.name.toLowerCase().includes(this.search.toLowerCase())).length < 1) {
+                    for (i = 0; i < this.contacts.length; i++)
+                        this.contacts[i].filtered = false;
                     return this.contacts
                 }
                 return this.contacts.filter(x => x.name.toLowerCase().includes(this.search.toLowerCase()));
