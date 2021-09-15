@@ -128,11 +128,17 @@ const app = new Vue({
             const message = this.userMessages;
             const status = 'sent';
             const date = this.timeFunction();
+            if (this.userMessages == '' || this.userMessages.match(/[' ']/))
+                return this.userMessages = "";
             this.contacts[index].messages.push({ date, message, status });
             // this.lastMessage = { date, message, status, index }
             this.userMessages = '';
             this.timerMessage(index);
 
+        },
+        // check if user is writing empty spaces or letters
+        isLetter(str) {
+            return str.length === 1 && str.match(/[a-z]/i);
         },
         // receiveMessage(index) {
         //     const message = 'Ok!';
@@ -162,7 +168,7 @@ const app = new Vue({
             this.deleteMessagesIndex = '-1';
         },
         lastMessage(index) {
-            const tmp = this.searchFilter[index].messages
+            const tmp = this.contacts[index].messages
             const length = parseInt(tmp.length - 1);
             console.log(length, tmp[length])
             return tmp[length]
@@ -170,6 +176,8 @@ const app = new Vue({
     },
     computed: {
         searchFilter: function() {
+            if (this.search == '')
+                return this.contacts;
             if (this.search != '') {
                 return this.contacts.filter(x => x.name.toLowerCase().includes(this.search.toLowerCase()));
             }
