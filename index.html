@@ -60,13 +60,13 @@
 
                         <li tabindex="1" @click="changeConversation(index)" v-for="({name,avatar,visible,messages}, index) in searchFilter" :class="'list-users ' + activeStatus(index) ">
                             <!-- ******************************************************** -->
-                            <div v-show="contacts[index].filtered == true">
+                            <div class="user-contact" v-show="contacts[index].filtered == true">
                                 <img :src="'img/avatar'+avatar+'.jpg'" alt="icon">
                                 <p>{{name}}</p>
+                                <h5 v-show="searchFilter[index].visible == true && searchFilter[index].filtered == true">{{lastMessage(index).message}} <br> {{lastMessage(index).date}}
+                                </h5>
                             </div>
-                            <h5 v-show="searchFilter[index].visible == true && searchFilter[index].filtered == true">{{lastMessage(index).message}} <br> {{lastMessage(index).date}}
 
-                            </h5>
                         </li>
                     </ul>
                 </div>
@@ -114,8 +114,9 @@
                 <!-- end of message prototype -->
                 <div class="input-message ">
                     <i class="far fa-smile "></i>
-                    <input @keydown.enter="sendMessage(conversationIndex) " v-model="userMessages " type="text " placeholder="scrivi un messaggio ">
-                    <i class="fas fa-microphone "></i>
+                    <input @keyup="switchButton" @keydown.enter="sendMessage(conversationIndex) " v-model="userMessages " type="text " placeholder="scrivi un messaggio ">
+                    <i v-show="mikeSend == true" class="fas fa-microphone "></i>
+                    <i @click="sendMessage(conversationIndex)" v-show="mikeSend == false" class="fas fa-paper-plane"></i>
                 </div>
             </div>
             <!-- end of chat container -->

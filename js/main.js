@@ -12,6 +12,7 @@ const app = new Vue({
                 status: ''
             }]
         }],
+        mikeSend: true,
         deleteMessagesIndex: '-1',
         conversationIndex: '0',
         userMessages: '',
@@ -136,17 +137,25 @@ const app = new Vue({
                 this.searchFilter[index].messages[0].message = message;
                 this.searchFilter[index].messages[0].date = date;
                 this.searchFilter[index].messages[0].status = status;
-                this.userMessages = ''
+                this.userMessages = '';
+                this.mikeSend = true;
                 this.timerMessage(index);
                 return
             }
-            if (this.userMessages == '' || this.userMessages.match(/[' ']/))
+            if (this.userMessages == '' || this.userMessages.match(/[' ']/)) {
+                this.mikeSend = true;
                 return this.userMessages = "";
+            }
             this.searchFilter[index].messages.push({ date, message, status });
             // this.lastMessage = { date, message, status, index }
             this.userMessages = '';
+            this.mikeSend = true;
             this.timerMessage(index);
 
+        },
+        switchButton() {
+            if (this.userMessages != '')
+                return this.mikeSend = false;
         },
         // receiveMessage(index) {
         //     const message = 'Ok!';
