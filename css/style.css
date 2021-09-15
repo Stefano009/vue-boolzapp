@@ -283,6 +283,12 @@
     .list-users:hover {
         background-color: lightgray;
     }
+    
+    .empty-chat {
+        font-size: 3rem;
+        text-align: center;
+        padding: 10rem;
+    }
     /*     
     .list-users:focus,
     .list-users:active {

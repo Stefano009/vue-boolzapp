@@ -92,7 +92,7 @@
                 </div>
                 <!-- message prototype -->
                 <div class="chat-area">
-                    <div v-for="({message,date,status}, index) in searchFilter[conversationIndex].messages" :class="'message '+ status">
+                    <div v-show="emptyChat[0] == true" v-for="({message,date,status}, index) in searchFilter[conversationIndex].messages" :class="'message '+ status">
                         <div class="display-flex ">
                             <p>{{message}}</p>
                             <div @click="toggleDropDown(index) " class="angle-down">
@@ -106,6 +106,9 @@
                         <div>
                             <p class="date ">{{date}}</p>
                         </div>
+                    </div>
+                    <div v-show="emptyChat[0] == false" class="empty-chat">
+                        <p>Nessun messaggio in cronologia</p>
                     </div>
                 </div>
                 <!-- end of message prototype -->

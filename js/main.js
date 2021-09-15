@@ -16,9 +16,9 @@ const app = new Vue({
         conversationIndex: '0',
         userMessages: '',
         search: '',
+        emptyChat: [true, -1],
         // lastMessageTmp: {},
-        opacityFlag: false,
-        opacity: 'opacity0',
+
         contacts: [{
                 name: 'Michele',
                 avatar: '_1',
@@ -102,8 +102,13 @@ const app = new Vue({
     },
     methods: {
         changeConversation(index) {
-
+            if (this.emptyChat[1] == index) {
+                this.emptyChat = [false, index];
+                this.conversationIndex = index;
+                return
+            }
             this.conversationIndex = index;
+            this.emptyChat[0] = true;
             this.deleteMessagesIndex = '-1';
 
         },
@@ -128,17 +133,21 @@ const app = new Vue({
             const message = this.userMessages;
             const status = 'sent';
             const date = this.timeFunction();
+            if (this.searchFilter[this.conversationIndex].messages[0].message == '') {
+                this.emptyChat = [true, -1];
+                this.searchFilter[index].messages[0].message = message;
+                this.searchFilter[index].messages[0].date = date;
+                this.searchFilter[index].messages[0].status = status;
+                this.timerMessage(index);
+                return
+            }
             if (this.userMessages == '' || this.userMessages.match(/[' ']/))
                 return this.userMessages = "";
-            this.contacts[index].messages.push({ date, message, status });
+            this.searchFilter[index].messages.push({ date, message, status });
             // this.lastMessage = { date, message, status, index }
             this.userMessages = '';
             this.timerMessage(index);
 
-        },
-        // check if user is writing empty spaces or letters
-        isLetter(str) {
-            return str.length === 1 && str.match(/[a-z]/i);
         },
         // receiveMessage(index) {
         //     const message = 'Ok!';
@@ -152,7 +161,7 @@ const app = new Vue({
                 const message = 'Ok!';
                 const status = 'received';
                 const date = self.timeFunction();
-                self.contacts[index].messages.push({ date, message, status });
+                self.searchFilter[index].messages.push({ date, message, status });
                 // self.lastMessage = { date, message, status, index }
             }, 1000);
         },
@@ -164,21 +173,28 @@ const app = new Vue({
         //     return this.contacts;
         // },
         removeMessageFunction(conversationIndex, messagesIndex) {
-            this.contacts[conversationIndex].messages.splice(messagesIndex, 1)
+            if (messagesIndex == 0) {
+                this.deleteMessagesIndex = '-1';
+                this.searchFilter[conversationIndex].messages[0].message = '';
+                this.searchFilter[conversationIndex].messages[0].date = '';
+                return this.emptyChat = [false, conversationIndex];
+            }
+            this.searchFilter[conversationIndex].messages.splice(messagesIndex, 1)
             this.deleteMessagesIndex = '-1';
         },
         lastMessage(index) {
-            const tmp = this.contacts[index].messages
+            const tmp = this.searchFilter[index].messages
             const length = parseInt(tmp.length - 1);
-            console.log(length, tmp[length])
+            // console.log(length, tmp[length])
             return tmp[length]
         }
     },
     computed: {
         searchFilter: function() {
-            if (this.search == '')
-                return this.contacts;
             if (this.search != '') {
+                if (this.contacts.filter(x => x.name.toLowerCase().includes(this.search.toLowerCase())).length == 0) {
+                    return this.contacts
+                }
                 return this.contacts.filter(x => x.name.toLowerCase().includes(this.search.toLowerCase()));
             }
             return this.contacts;
